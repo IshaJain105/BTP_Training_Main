@@ -1,0 +1,66 @@
+1. Change manifest.yml to connect to hana schema
+2. remove postgre dependency from pom.xml
+3. Change code in DatabaseConfig class to connect to HANA Schema
+
+/**
+     * (Step 1) Parses the local environment variable VCAP_SERVICES (containing
+     * cloud information) and provides a DataSource. The superclass
+     * {@link AbstractCloudConfig}, part of the Spring Cloud plugin, is used for
+     * this.
+     */
+	//
+	Logger cloudFoundryDataSourceConfigLogger = LoggerFactory.getLogger(this.getClass());
+	
+	@Value("${vcap.services.hana_schema.credentials.user}")
+	private String username;
+
+	@Value("${vcap.services.hana_schema.credentials.password}")
+	private String password;
+	
+	@Value("${vcap.services.hana_schema.credentials.url}")
+	private String hostname;
+	
+	@Value("${vcap.services.hana_schema.credentials.port}")
+	private String port;
+	
+	@Value("${vcap.services.hana_schema.credentials.schema}")
+	private String schemaname;	
+	
+    @Bean
+    public DataSource dataSource() {
+        /*
+         * Load BasicDbcpPooledDataSourceCreator before
+         * TomcatJdbcPooledDataSourceCreator. Also see the following link for a
+         * detailled discussion of this issue:
+         * https://stackoverflow.com/questions/36885891/jpa-eclipselink-understanding-
+         * classloader-issues
+         */
+        List<String> dataSourceNames = Arrays.asList("BasicDbcpPooledDataSourceCreator",
+                "TomcatJdbcPooledDataSourceCreator", "HikariCpPooledDataSourceCreator",
+                "TomcatDbcpPooledDataSourceCreator");
+        
+        DataSourceConfig dbConfig = new DataSourceConfig(dataSourceNames);
+        //DataSource hikariDataSource =  connectionFactory().dataSource(dbConfig);
+        DataSource myConnection = DataSourceBuilder.create()
+        						  .type(HikariDataSource.class)
+        						  .driverClassName(com.sap.db.jdbc.Driver.class.getName())
+        						  .url(hostname)
+        						  .username(username)
+        						  .password(password)
+        						  .build();
+        
+        try {
+			myConnection.getConnection().setSchema(schemaname);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        cloudFoundryDataSourceConfigLogger.info("Detected Host name is : " + this.hostname);
+        cloudFoundryDataSourceConfigLogger.info("Detected port name is : " + this.port);
+        cloudFoundryDataSourceConfigLogger.info("Detected Schema name is : " + this.schemaname);
+        cloudFoundryDataSourceConfigLogger.info("Detected User name is : " + this.username);
+        
+        return myConnection;
+        
+    }
