@@ -19,6 +19,7 @@
 		<org.eclipse.persistence.version>2.7.3</org.eclipse.persistence.version>
 		<version.olingo>2.0.7</version.olingo>
 		<odata.version>4.7.1</odata.version>
+		<sap.cloud.security.version>2.13.4</sap.cloud.security.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -225,7 +226,17 @@
 		    <version>1.18.24</version>
 		    <scope>provided</scope>
 		</dependency>
-
+		<!-- CLoud xsuaa security -->
+		<dependency>
+			<groupId>com.sap.cloud.security.xsuaa</groupId>
+			<artifactId>xsuaa-spring-boot-starter</artifactId>
+			<version>${sap.cloud.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.3.3.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -8,4 +8,5 @@ applications:
   - sap_java_buildpack
   services:
   - mysql
+  - myxsuaa
   
