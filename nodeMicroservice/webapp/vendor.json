@@ -1,0 +1,20 @@
+{
+    "vendors":[
+        {
+            "id":1001,
+            "name": "JK tyers"
+        },
+        {
+            "id":1002,
+            "name": "Isha tiffins"
+        },
+        {
+            "id":1003,
+            "name": "Mahadev enterprises"
+        },
+        {
+            "id":1004,
+            "name": "JK cement"
+        }
+    ]
+}

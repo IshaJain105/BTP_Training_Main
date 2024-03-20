@@ -1,0 +1,34 @@
+{
+    "empStr":{
+        "empId":1001,
+        "empName": "Isha",
+        "salary": 45000,
+        "curr": "INR"
+    },
+    "empTab": [
+        {
+            "empId":1002,
+            "empName": "Pratyusha",
+            "salary": 50000,
+            "curr": "EUR"   
+        },
+        {
+            "empId":1003,
+            "empName": "Anil",
+            "salary": 55000,
+            "curr": "INR"   
+        },
+        {
+            "empId":1004,
+            "empName": "Deepak",
+            "salary": 50000,
+            "curr": "DOLLAR"   
+        },
+        {
+            "empId":1005,
+            "empName": "Anubhav",
+            "salary": 45000,
+            "curr": "EUR"   
+        }
+    ]
+}
