@@ -1,6 +1,7 @@
+---
 applications:
-  - name: ishanodems
-    memory: 512M
-    buildpacks: 
-    - nodejs_buildpack
-    random-route: true
+- name: ishanodems
+  memory: 512M
+  buildpacks: 
+  - nodejs_buildpack
+  random-route: true

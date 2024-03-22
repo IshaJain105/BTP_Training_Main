@@ -1,0 +1,41 @@
+
+applications:
+- name: nodeapp
+  path: ./nodeapp
+  memory: 512M
+  routes:
+    - route: https://nodeapp-ishaapp.cfapps.us10-001.hana.ondemand.com
+  services:
+  - ourxsuaa
+
+- name: javaapp
+  path: ./javaapp/btpolingoodata-0.0.1-SNAPSHOT.war
+  memory: 1024M
+  routes:
+    - route: https://myjavaapp-ishaapp.cfapps.us10-001.hana.ondemand.com
+  services:
+  - mysql
+  - ourxsuaa
+
+- name: approuter
+  path: ./approuter
+  memory: 256M
+  routes:
+    - route: https://approuter-ishaapp.cfapps.us10-001.hana.ondemand.com
+  services:
+  - ourxsuaa
+  env:
+    TENANT_HOST_PATTERN: "approuter-ishaapp-(.*).cfapps.us10.hana.ondemand.com"
+    destinations: >
+      [
+        {
+          "name": "javaapp",
+          "url": "https://myjavaapp-ishaapp.cfapps.us10-001.hana.ondemand.com",
+          "forwardAuthToken": true
+        },
+        {
+          "name": "nodeapp",
+          "url": "https://nodeapp-ishaapp.cfapps.us10-001.hana.ondemand.com",
+          "forwardAuthToken": true
+        }
+      ]

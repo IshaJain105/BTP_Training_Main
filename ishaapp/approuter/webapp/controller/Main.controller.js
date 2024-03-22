@@ -9,7 +9,7 @@ sap.ui.define([
         //Class have a constructor
         onInit: function(){
             //Create our Model object of type odata based on current relative path
-            var oDataModel = new ODataModel("/javaapp/anubhav.svc/");
+            var oDataModel = new ODataModel("/spiderman/anubhav.svc/");
             //Set the model object at application level
             sap.ui.getCore().setModel(oDataModel);
             //Local model - like a internal table for manipulating the data

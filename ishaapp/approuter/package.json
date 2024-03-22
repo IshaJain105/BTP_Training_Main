@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sap/approuter": "^16.2.1"
+    "@sap/approuter": "^14.3.4"
   },
   "description": ""
 }
